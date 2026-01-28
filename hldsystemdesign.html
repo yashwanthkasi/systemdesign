@@ -1,0 +1,3145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Learning Platform - Master HLD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-light: #f8fafc;
+            --bg-dark: #0f172a;
+            --card-light: #ffffff;
+            --card-dark: #1e293b;
+            --text-light: #1e293b;
+            --text-dark: #f1f5f9;
+            --border-light: #e2e8f0;
+            --border-dark: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            background-color: var(--bg-light);
+            color: var(--text-light);
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .light-mode .header {
+            background: var(--card-light);
+        }
+
+        .dark-mode .header {
+            background: var(--card-dark);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .theme-toggle, .settings-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: var(--primary);
+            color: white;
+        }
+
+        .theme-toggle:hover, .settings-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Home View */
+        .home-view {
+            display: none;
+        }
+
+        .home-view.active {
+            display: block;
+        }
+
+        .welcome-section {
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+        }
+
+        .welcome-section h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-section p {
+            font-size: 20px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .learning-paths {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .path-card {
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .light-mode .path-card {
+            background: var(--card-light);
+        }
+
+        .dark-mode .path-card {
+            background: var(--card-dark);
+        }
+
+        .path-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .path-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .path-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .path-description {
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+
+        .path-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.5s ease;
+        }
+
+        .path-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Learning View */
+        .learning-view {
+            display: none;
+        }
+
+        .learning-view.active {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        .content-area {
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            min-height: 600px;
+        }
+
+        .light-mode .content-area {
+            background: var(--card-light);
+        }
+
+        .dark-mode .content-area {
+            background: var(--card-dark);
+        }
+
+        .breadcrumb {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .breadcrumb-item {
+            cursor: pointer;
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--primary);
+        }
+
+        .concept-header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .concept-header-content {
+            flex: 1;
+        }
+
+        .concept-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .concept-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .regenerate-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .regenerate-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .regenerate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .concept-content {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .concept-content h2 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .concept-content h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .concept-content ul, .concept-content ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .concept-content li {
+            margin-bottom: 10px;
+        }
+
+        .concept-content code {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .concept-content pre {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* Enhanced Content Styling */
+        .concept-content .highlight {
+            background: linear-gradient(120deg, rgba(251, 191, 36, 0.2), rgba(251, 191, 36, 0.1));
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+            color: inherit;
+        }
+
+        .concept-content .key-concept {
+            background: rgba(99, 102, 241, 0.08);
+            padding: 3px 8px;
+            border-left: 3px solid var(--primary);
+            border-radius: 3px;
+            font-weight: 700;
+            display: inline-block;
+            margin: 0 4px;
+        }
+
+        .concept-content .content-box {
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid;
+            background-size: 1.5em 1.5em;
+            background-position: 12px 12px;
+            background-repeat: no-repeat;
+            padding-left: 40px;
+        }
+
+        .light-mode .concept-content .content-box {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .dark-mode .concept-content .content-box {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .concept-content .story-box {
+            border-color: #8b5cf6;
+            color: inherit;
+        }
+
+        .light-mode .concept-content .story-box {
+            background-color: rgba(139, 92, 246, 0.08);
+        }
+
+        .dark-mode .concept-content .story-box {
+            background-color: rgba(139, 92, 246, 0.12);
+        }
+
+        .concept-content .story-box::before {
+            content: "📖";
+            position: absolute;
+            margin-left: -28px;
+            font-size: 20px;
+        }
+
+        .concept-content .analogy-box {
+            border-color: #f59e0b;
+            color: inherit;
+        }
+
+        .light-mode .concept-content .analogy-box {
+            background-color: rgba(245, 158, 11, 0.08);
+        }
+
+        .dark-mode .concept-content .analogy-box {
+            background-color: rgba(245, 158, 11, 0.12);
+        }
+
+        .concept-content .analogy-box::before {
+            content: "💡";
+            position: absolute;
+            margin-left: -28px;
+            font-size: 20px;
+        }
+
+        .concept-content .example-box {
+            border-color: #3b82f6;
+            color: inherit;
+        }
+
+        .light-mode .concept-content .example-box {
+            background-color: rgba(59, 130, 246, 0.08);
+        }
+
+        .dark-mode .concept-content .example-box {
+            background-color: rgba(59, 130, 246, 0.12);
+        }
+
+        .concept-content .example-box::before {
+            content: "💻";
+            position: absolute;
+            margin-left: -28px;
+            font-size: 20px;
+        }
+
+        .concept-content .warning-box {
+            border-color: #ef4444;
+            color: inherit;
+        }
+
+        .light-mode .concept-content .warning-box {
+            background-color: rgba(239, 68, 68, 0.08);
+        }
+
+        .dark-mode .concept-content .warning-box {
+            background-color: rgba(239, 68, 68, 0.12);
+        }
+
+        .concept-content .warning-box::before {
+            content: "⚠️";
+            position: absolute;
+            margin-left: -28px;
+            font-size: 20px;
+        }
+
+        .concept-content .tip-box {
+            border-color: #10b981;
+            color: inherit;
+        }
+
+        .light-mode .concept-content .tip-box {
+            background-color: rgba(16, 185, 129, 0.08);
+        }
+
+        .dark-mode .concept-content .tip-box {
+            background-color: rgba(16, 185, 129, 0.12);
+        }
+
+        .concept-content .tip-box::before {
+            content: "✨";
+            position: absolute;
+            margin-left: -28px;
+            font-size: 20px;
+        }
+
+        .concept-content .real-world-box {
+            border-color: var(--primary);
+            color: inherit;
+        }
+
+        .light-mode .concept-content .real-world-box {
+            background-color: rgba(99, 102, 241, 0.08);
+        }
+
+        .dark-mode .concept-content .real-world-box {
+            background-color: rgba(99, 102, 241, 0.12);
+        }
+
+        .concept-content .real-world-box::before {
+            content: "🚀";
+            position: absolute;
+            margin-left: -28px;
+            font-size: 20px;
+        }
+
+        .concept-content .box-title {
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(99, 102, 241, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            font-size: 16px;
+            opacity: 0.7;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .progress-panel, .navigation-panel {
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .light-mode .progress-panel, .light-mode .navigation-panel {
+            background: var(--card-light);
+        }
+
+        .dark-mode .progress-panel, .dark-mode .navigation-panel {
+            background: var(--card-dark);
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .light-mode .stat-box {
+            background: var(--bg-light);
+        }
+
+        .dark-mode .stat-box {
+            background: var(--bg-dark);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-btn-primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .nav-btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-btn-secondary:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Quiz View */
+        .quiz-container {
+            padding: 30px;
+        }
+
+        .quiz-header {
+            margin-bottom: 30px;
+        }
+
+        .quiz-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .quiz-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .difficulty-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .difficulty-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .difficulty-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .question-card {
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 2px solid var(--border-light);
+        }
+
+        .dark-mode .question-card {
+            border-color: var(--border-dark);
+        }
+
+        .question-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dark-mode .option {
+            border-color: var(--border-dark);
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .option.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .quiz-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .quiz-results {
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .light-mode .quiz-results {
+            background: var(--bg-light);
+        }
+
+        .dark-mode .quiz-results {
+            background: var(--card-dark);
+        }
+
+        .results-score {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .results-message {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Quiz History */
+        .history-view {
+            display: none;
+            padding: 30px;
+        }
+
+        .history-view.active {
+            display: block;
+        }
+
+        .history-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 10px 15px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .dark-mode .filter-select {
+            background: var(--card-dark);
+            color: var(--text-dark);
+            border-color: var(--border-dark);
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .history-item {
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid var(--border-light);
+        }
+
+        .dark-mode .history-item {
+            border-color: var(--border-dark);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* Settings Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .light-mode .modal-content {
+            background: var(--card-light);
+        }
+
+        .dark-mode .modal-content {
+            background: var(--card-dark);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .close-btn:hover {
+            opacity: 1;
+        }
+
+        .settings-group {
+            margin-bottom: 25px;
+        }
+
+        .settings-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .settings-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .dark-mode .settings-input {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+            border-color: var(--border-dark);
+        }
+
+        .settings-help {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .learning-view.active {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .learning-paths {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🎓 AI Learning Platform</div>
+            <div class="header-actions">
+                <button class="theme-toggle" onclick="toggleTheme()">🌙 Toggle Theme</button>
+                <button class="settings-btn" onclick="openSettings()">⚙️ Settings</button>
+            </div>
+        </div>
+
+        <!-- Home View -->
+        <div class="home-view active" id="homeView">
+            <div class="welcome-section">
+                <h1>Master System Design with AI</h1>
+                <p>A personalized, AI-powered learning journey that adapts to your pace and style</p>
+            </div>
+
+            <div class="learning-paths" id="learningPaths">
+                <!-- Learning paths will be rendered here -->
+            </div>
+        </div>
+
+        <!-- Learning View -->
+        <div class="learning-view" id="learningView">
+            <div class="content-area">
+                <div class="breadcrumb" id="breadcrumb">
+                    <span class="breadcrumb-item" onclick="goHome()">Home</span>
+                    <span>›</span>
+                    <span class="breadcrumb-item" id="pathName">HLD Master</span>
+                </div>
+
+                <div id="contentContainer">
+                    <!-- Content will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="progress-panel">
+                    <div class="panel-title">Your Progress</div>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Overall Progress</span>
+                            <span id="overallProgress">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-value" id="conceptsCompleted">0</div>
+                            <div class="stat-label">Concepts</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="quizzesCompleted">0</div>
+                            <div class="stat-label">Quizzes</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="averageScore">0%</div>
+                            <div class="stat-label">Avg Score</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="streakDays">0</div>
+                            <div class="stat-label">Day Streak</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-panel">
+                    <div class="panel-title">Navigation</div>
+                    <div class="nav-buttons">
+                        <button class="nav-btn nav-btn-primary" id="takeQuizBtn" onclick="startQuiz()">
+                            📝 Take Quiz
+                        </button>
+                        <button class="nav-btn nav-btn-secondary" id="nextConceptBtn" onclick="nextConcept()" disabled>
+                            ➡️ Next Concept
+                        </button>
+                        <button class="nav-btn nav-btn-secondary" id="prevConceptBtn" onclick="prevConcept()">
+                            ⬅️ Previous Concept
+                        </button>
+                        <button class="nav-btn nav-btn-secondary" onclick="viewHistory()">
+                            📊 Quiz History
+                        </button>
+                        <button class="nav-btn nav-btn-secondary" onclick="goHome()">
+                            🏠 Back to Home
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz History View -->
+        <div class="history-view" id="historyView">
+            <div class="breadcrumb">
+                <span class="breadcrumb-item" onclick="goHome()">Home</span>
+                <span>›</span>
+                <span class="breadcrumb-item" onclick="returnToLearning()">Learning</span>
+                <span>›</span>
+                <span>Quiz History</span>
+            </div>
+
+            <h1 style="margin: 20px 0;">Quiz History</h1>
+
+            <div class="history-filters">
+                <select class="filter-select" id="conceptFilter" onchange="filterHistory()">
+                    <option value="all">All Concepts</option>
+                </select>
+                <select class="filter-select" id="difficultyFilter" onchange="filterHistory()">
+                    <option value="all">All Difficulties</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                    <option value="expert">Expert</option>
+                </select>
+                <button class="btn btn-primary" onclick="generateWeakAreasQuiz()">
+                    🎯 Practice Weak Areas
+                </button>
+            </div>
+
+            <div class="history-list" id="historyList">
+                <!-- History items will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Settings</div>
+                <button class="close-btn" onclick="closeSettings()">×</button>
+            </div>
+            <div class="settings-group">
+                <label class="settings-label">Groq API Key</label>
+                <input type="password" class="settings-input" id="apiKeyInput" placeholder="Enter your Groq API key">
+                <div class="settings-help">Get your API key from https://console.groq.com</div>
+            </div>
+            <div class="settings-group">
+                <label class="settings-label">Model</label>
+                <select class="settings-input" id="modelSelect">
+                    <option value="llama-3.3-70b-versatile">Llama 3.3 70B (Recommended)</option>
+                    <option value="llama-3.1-70b-versatile">Llama 3.1 70B</option>
+                    <option value="mixtral-8x7b-32768">Mixtral 8x7B</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="saveSettings()" style="width: 100%; margin-top: 20px;">
+                Save Settings
+            </button>
+            <button class="btn btn-secondary" onclick="resetProgress()" style="width: 100%; margin-top: 10px;">
+                🗑️ Reset All Progress
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ==================== STATE MANAGEMENT ====================
+        const APP_STATE = {
+            currentPath: null,
+            currentConceptIndex: 0,
+            theme: 'light',
+            apiKey: '',
+            model: 'llama-3.3-70b-versatile',
+            isQuizMode: false
+        };
+
+        // ==================== LEARNING PATH STRUCTURE ====================
+        const LEARNING_PATHS = {
+            hld: {
+                id: 'hld',
+                title: 'High-Level System Design Master',
+                description: 'Master system design from fundamentals to advanced concepts in 15 days',
+                icon: '🏗️',
+                estimatedDays: 15,
+                concepts: [
+                    // Day 1: Fundamentals
+                    { day: 1, title: 'Introduction to System Design', prompt: `Create an engaging, beginner-friendly introduction to system design that:
+
+1. OPENS WITH A RELATABLE STORY: Start with a real scenario where poor system design failed (like Instagram's early growth challenges, Twitter's fail whale moments, or Facebook's scaling crisis). Help learners understand WHY system design matters through narrative, not theory.
+
+2. PROVIDES A SIMPLE ANALOGY: Compare system design to something familiar (city planning, restaurant management, a library, etc.) to make abstract concepts concrete.
+
+3. COVERS THE FUNDAMENTALS:
+   - What is system design (definition through real examples, not textbook)
+   - Why it matters (connect to real-world impact: speed, reliability, user experience)
+   - Key objectives (scalability, reliability, performance) with brief real examples for each
+
+4. INCLUDES A PRACTICAL EXAMPLE: Show a concrete system (Instagram feed, e-commerce checkout, video streaming) and explain how system design principles apply.
+
+5. HIGHLIGHTS KEY CONCEPTS: Use **{bold braces}** to emphasize important terms that readers should remember.
+
+6. ENDS WITH ACTIONABLE INSIGHTS: A tip about approaching system design and a warning about common beginner mistakes.
+
+Structure your response with clear sections so the output renders as:
+- Opening narrative story (one paragraph, compelling)
+- Analogy explanation (one paragraph, relatable)
+- Key concept definitions (bulleted list)
+- Practical example with code/pseudocode
+- Actionable tip
+- Common pitfall warning
+- Connection to real systems (Netflix, Google, etc.)
+
+Make it engaging and memorable - someone should WANT to learn more after reading this.` },
+                    
+                    { day: 1, title: 'Requirements Gathering & Constraints', prompt: `Create an engaging lesson on requirements gathering that:
+
+1. STARTS WITH CONSEQUENCES: Show a real scenario where unclear requirements caused problems (Netflix's 4K rollout complexity, Uber's geographic constraints, or infrastructure scaling miscalculations).
+
+2. EXPLAINS THE DISTINCTION: Help readers understand the difference between what a system DOES (functional) vs HOW WELL it does it (non-functional), with concrete examples they can relate to.
+
+3. COVERS CORE CONCEPTS:
+   - Functional requirements (features users see)
+   - Non-functional requirements (speed, reliability, capacity)
+   - Constraints (budget, regulatory, infrastructure limits)
+
+4. PROVIDES ACTIONABLE FRAMEWORK: Show how to systematically gather requirements (clarifying questions, estimation, documentation).
+
+5. INCLUDES WORKED EXAMPLES: Walk through requirement gathering for a real system (URL shortener, chat app, streaming service).
+
+6. HIGHLIGHTS COMMON MISTAKES: What happens when requirements aren't clear or are underestimated.
+
+7. CONNECTS TO REAL SYSTEMS: Show how actual companies handle this phase.
+
+Make it practical—someone should feel confident asking the right questions in their next design interview.` },
+
+                    { day: 1, title: 'Back-of-Envelope Calculations', prompt: `Create an engaging guide to estimation that shows readers WHY accurate math matters:
+
+1. OPENS WITH REAL STAKES: YouTube storing petabytes, Google's trillion queries—show why math errors compound catastrophically.
+
+2. TEACHES THE FUNDAMENTALS: QPS, storage, bandwidth, memory estimation through relatable scenarios.
+
+3. PROVIDES WORKED EXAMPLES: Step through actual calculations (DAU to QPS conversions, storage calculations, bandwidth estimates) so readers can replicate.
+
+4. EXPLAINS THE PATTERNS: Key conversions (seconds per day, replication factors, cache hit rates) and when to apply them.
+
+5. INCLUDES SANITY CHECKS: How to validate estimates (cross-check with real systems, identify obviously wrong results).
+
+6. HIGHLIGHTS COMMON ERRORS: Off-by-magnitude mistakes, ignoring replication, underestimating growth.
+
+7. SHOWS REAL SYSTEM EXAMPLES: Netflix, LinkedIn, Twitter—how they estimated when starting.
+
+Make it hands-on—someone should confidently do estimation in an interview or design document.` },
+
+                    // Day 2: Scalability Basics
+                    { day: 2, title: 'Vertical vs Horizontal Scaling', prompt: `Teach scaling strategies by showing real consequences:
+
+1. START WITH NETFLIX'S JOURNEY: Show how early vertical scaling hit hard limits, forcing architectural shift to horizontal—this transformation matters.
+
+2. EXPLAIN THE TRADE-OFF CLEARLY:
+   - Vertical: Simplicity, single-point-of-failure, hardware ceiling
+   - Horizontal: Complexity, resilience, unlimited scale
+
+3. WALK THROUGH LIMITS: Real numbers on CPU cores, RAM, cost curves—help readers visualize why hitting a ceiling is inevitable.
+
+4. PROVIDE ARCHITECTURE EXAMPLES: Monolith (vertical) vs distributed system (horizontal) with concrete differences.
+
+5. DISCUSS OPERATIONAL IMPACT: How scaling strategies affect team size, monitoring, deployment.
+
+6. SHOW REAL SYSTEMS: Amazon, Google, Netflix—all exclusively horizontal at scale.
+
+Make readers understand that this isn't just a technical choice—it's an architectural philosophy that changes everything.` },
+
+                    { day: 2, title: 'Load Balancers Deep Dive', prompt: `Create an engaging exploration of load balancing that explains distribution strategies:
+
+1. OPENS WITH FAILURE SCENARIO: Twitter during Super Bowl—traffic spikes 10x, unbalanced load causes outages.
+
+2. EXPLAINS DISTRIBUTION ALGORITHMS: Round-robin, least connections, consistent hashing—what each does and when to use it.
+
+3. INCLUDES WORKED EXAMPLES: Show requests flowing to different servers, how algorithm choices affect outcomes.
+
+4. DISCUSSES TRADE-OFFS: L4 vs L7 load balancers, latency implications, complexity.
+
+5. ADDRESSES FAILURE MODES: What happens when load balancer itself fails? Active-passive, multiple redundancy.
+
+6. SHOWS REAL IMPLEMENTATIONS: AWS ALB, Nginx, HAProxy—how they differ.
+
+Help readers understand that load balancing is both science (algorithms) and art (configuration), and getting it right is crucial.` },
+
+                    { day: 2, title: 'Stateless vs Stateful Architecture', prompt: `Explain architectural paradigms by showing their implications:
+
+1. OPENS WITH A PROBLEM: Early e-commerce sites where users couldn't switch servers, sessions were lost—why this mattered operationally.
+
+2. DEFINES THE FUNDAMENTAL DIFFERENCE: Stateless servers don't need memory of past interactions; stateful servers do.
+
+3. EXPLAINS CASCADING EFFECTS:
+   - Stateless: Horizontal scaling becomes trivial
+   - Stateful: Sticky sessions, affinity, complexity
+   - Database state: Moves problem to persistent layer
+
+4. SHOWS IMPLEMENTATION PATTERNS: JWT tokens, session stores (Redis), how requests flow differently.
+
+5. DISCUSSES TRADE-OFFS: Simplicity vs scalability, latency implications.
+
+6. PROVIDES REAL EXAMPLES: REST APIs (stateless), WebSockets (stateful), hybrid approaches.
+
+Help readers see this isn't about purity—it's about choosing the right tool for each layer.` },
+
+                    // Day 3: Networking & Communication
+                    { day: 3, title: 'HTTP, REST, and API Design', prompt: `Create a comprehensive guide to building scalable APIs:
+
+1. OPENS WITH CHAOS NARRATIVE: Early pre-REST APIs, confusion, conventions emerging, Stripe bringing order.
+
+2. TEACHES REST PRINCIPLES: Resources, HTTP methods (GET/POST/PUT/DELETE), stateless design, cacheability—through examples, not definitions.
+
+3. INCLUDES DESIGN PATTERNS:
+   - Resource naming conventions
+   - Status code meanings
+   - Pagination strategies
+   - Error representation
+
+4. PROVIDES WORKED EXAMPLE: Trace a real API (user CRUD operations) with proper REST design.
+
+5. DISCUSSES EVOLUTION & VERSIONING: How companies handle API changes without breaking clients.
+
+6. COMPARES ALTERNATIVES: REST vs GraphQL, SOAP—why REST won for most use cases.
+
+7. SHOWS PRODUCTION REALITY: Stripe, GitHub, Twitter—exemplary API design.
+
+Make readers understand REST as both craft and science—there's right and wrong, and the difference matters.` },
+
+                    { day: 3, title: 'WebSockets and Real-Time Communication', prompt: `Teach real-time architectures by explaining the fundamental tension:
+
+1. OPENS WITH LIMITATION STORY: HTTP polling's waste, Facebook's real-time chat requirements, why persistent connections were invented.
+
+2. EXPLAINS COMMUNICATION MODELS:
+   - HTTP polling (wasteful)
+   - WebSockets (persistent bidirectional)
+   - Server-Sent Events (server push only)
+   - Long polling (compromise)
+
+3. WALKS THROUGH WEBSOCKET MECHANICS: Handshake, frame format, connection management—make it concrete.
+
+4. ADDRESSES SCALING CHALLENGES: Connection pooling, horizontal scaling, session persistence.
+
+5. INCLUDES FAILURE MODES: Network disconnects, reconnection logic, message ordering guarantees.
+
+6. SHOWS REAL IMPLEMENTATIONS: WhatsApp, Discord, live dashboards—how they handle millions of concurrent connections.
+
+7. DISCUSSES TRADE-OFFS: Complexity vs real-time experience.
+
+Help readers see that real-time systems are both beautiful and complex.` },
+
+                    { day: 3, title: 'RPC and gRPC', prompt: `Explain service-to-service communication evolution:
+
+1. OPENS WITH MICROSERVICES CONTEXT: Services need to talk. HTTP/REST is convenient but verbose. Why gRPC?
+
+2. EXPLAINS RPC CONCEPT: Remote Procedure Call—making service calls feel like local calls.
+
+3. INTRODUCES gRPC ADVANTAGES:
+   - Performance (binary protocol, HTTP/2 multiplexing)
+   - Type safety (Protocol Buffers)
+   - Bidirectional streaming
+   - Language agnostic
+
+4. PROVIDES PROTO DEFINITION EXAMPLES: Show how to define services and messages.
+
+5. DISCUSSES TRADE-OFFS: Simplicity of REST vs efficiency of gRPC. When each is appropriate.
+
+6. SHOWS REAL USAGE: Netflix, Uber, Shopify—where gRPC is the standard.
+
+7. ADDRESSES OPERATIONAL ASPECTS: Monitoring, debugging, debugging binary protocols.
+
+Help readers see gRPC not as a replacement for REST, but as a tool for specific problems.` },
+
+                    // Day 4: Databases & Storage I
+                    { day: 4, title: 'SQL vs NoSQL Databases', prompt: `Explore the database choice that impacts entire systems:
+
+1. OPENS WITH CONTEXT: The NoSQL hype era, "SQL is dead"—reality is nuanced. Both exist. Why?
+
+2. EXPLAINS FUNDAMENTAL DIFFERENCES: Schemas, consistency models, query flexibility, scaling approach.
+
+3. TEACHES THE TRADE-OFF MATRIX:
+   - SQL: ACID, joins, complex queries, scaling limits
+   - NoSQL: Flexible schema, eventual consistency, horizontal scale, limited query patterns
+
+4. SHOWS DECISION FRAMEWORK: Requirements determine choice—not dogma.
+
+5. INCLUDES WORKED EXAMPLES: Financial transactions (SQL), user profiles (NoSQL), hybrid approaches.
+
+6. DISCUSSES OPERATIONAL DIFFERENCES: Backups, scaling, monitoring differ significantly.
+
+7. SHOWS REAL SYSTEMS: Google uses BigTable (NoSQL) for scale, Spanner (SQL) for consistency. Both.
+
+Help readers see databases as tools for different jobs, not religious wars.` },
+
+                    { day: 4, title: 'Database Sharding Strategies', prompt: `Teach partitioning for massive scale:
+
+1. OPENS WITH PAIN: Twitter's growth—single database hit limits. Sharding was forced, not optional.
+
+2. EXPLAINS SHARDING: Partitioning data across independent databases, choosing what data goes where.
+
+3. TEACHES SHARD KEY SELECTION:
+   - Hash-based: Uniform distribution
+   - Range-based: Easier migration, hot shards risk
+   - Directory-based: Flexible, requires lookup
+   - Choosing the right key makes or breaks the system
+
+4. WALKS THROUGH TRADE-OFFS:
+   - Pros: Unlimited scale, parallel processing
+   - Cons: No joins, distributed transactions, rebalancing complexity
+
+5. ADDRESSES OPERATIONAL CONCERNS: Resharding as data grows, monitoring shard imbalance.
+
+6. SHOWS REAL IMPLEMENTATIONS: Instagram, Facebook—how they shard and why.
+
+7. DISCUSSES ANTI-PATTERNS: Hot shards, uneven distribution, poor shard key choices.
+
+Help readers understand sharding isn't just technical—it shapes application architecture fundamentally.` },
+
+                    { day: 4, title: 'Database Replication Patterns', prompt: `Understand high availability through replication:
+
+1. OPENS WITH FAILURE: Single database down = entire system down. Replication prevents this.
+
+2. TEACHES REPLICATION PATTERNS:
+   - Master-Slave (standard): One writes, many read
+   - Master-Master (complex): Both write, conflict resolution needed
+   - Chain/Tree: Reduces master load
+
+3. EXPLAINS CONSISTENCY IMPLICATIONS:
+   - Synchronous: Slow but consistent
+   - Asynchronous: Fast but lag possible (temporary inconsistency)
+
+4. WALKS THROUGH FAILOVER: Master fails → promote replica → coordinate, clients reconnect.
+
+5. DISCUSSES SCALING READ CAPACITY: Replicas enable read scale—critical for read-heavy workloads.
+
+6. SHOWS REAL IMPLEMENTATIONS: MySQL replication, MongoDB replica sets, PostgreSQL streaming.
+
+7. ADDRESSES OPERATIONAL CHALLENGES: Monitoring lag, handling failover, backup strategies.
+
+Help readers see replication as foundation of reliability, not optional feature.` },
+
+                    // Day 5: Databases & Storage II
+                    { day: 5, title: 'Indexing and Query Optimization', prompt: `Master database performance through strategic indexing:
+
+1. OPENS WITH PERFORMANCE CLIFF: Query on 1B rows—10 seconds without index, 10ms with one. Why?
+
+2. EXPLAINS INDEX MECHANICS: Data structures (B-Tree, hash, full-text), trade-offs.
+
+3. TEACHES INDEXING STRATEGY:
+   - Index columns in WHERE clauses
+   - Consider ORDER BY, GROUP BY columns
+   - Balance read speed vs write cost
+   - Too many indexes slow writes significantly
+
+4. INCLUDES WORKED EXAMPLES: Query analysis, execution plans, understanding why index helps (or doesn't).
+
+5. DISCUSSES ADVANCED PATTERNS: Composite indexes, partial indexes, covering indexes.
+
+6. SHOWS OPERATIONAL MONITORING: Query logs, slow query analysis, identifying missing indexes.
+
+7. ADDRESSES PITFALLS: Over-indexing, index fragmentation, monitoring index effectiveness.
+
+Help readers see database performance as result of thoughtful index design, not luck.` },
+
+                    { day: 5, title: 'Object Storage and Blob Storage', prompt: `Understand storage for unstructured data at massive scale:
+
+1. OPENS WITH INSTAGRAM'S PROBLEM: Billions of images—can't store in database. What's the solution?
+
+2. EXPLAINS OBJECT STORAGE CONCEPT: Key-value store for arbitrary data, unlimited capacity, geographic distribution.
+
+3. TEACHES OPERATIONAL CHARACTERISTICS:
+   - Unlimited scale
+   - Durability (replicated across datacenters)
+   - Geographic distribution
+   - Simple API (PUT, GET, DELETE)
+
+4. ADDRESSES CONCERNS:
+   - Latency (slower than databases, mitigated by CDN)
+   - Costs (cheap storage, expensive egress)
+   - Lifecycle policies (archive old data)
+   - Versioning and retention
+
+5. SHOWS CDN INTEGRATION: Object storage as origin, CDN edge caching, user experience optimization.
+
+6. DISCUSSES REAL IMPLEMENTATIONS: AWS S3 (the standard), GCS, Azure Blob, on-premises MinIO.
+
+7. INCLUDES OPERATIONAL TOPICS: Access control, encryption, compliance, monitoring.
+
+Help readers see object storage as critical infrastructure, not just a place to throw files.` },
+
+                    { day: 5, title: 'Time-Series Databases', prompt: `Specialize in metrics, monitoring, and time-ordered data:
+
+1. OPENS WITH SCALE PROBLEM: Prometheus collecting millions of metrics/second—regular databases can't handle this write rate.
+
+2. EXPLAINS TIME-SERIES CHARACTERISTICS:
+   - Append-only (immutable history)
+   - Time-ordered
+   - Massive write volume
+   - Time-decay value (old data less important)
+
+3. TEACHES SPECIALIZED OPTIMIZATIONS:
+   - Compression (timestamps differ predictably)
+   - Downsampling (keep 1-min data for 1 week, 1-hour for 1 year)
+   - Retention policies
+   - Efficient aggregation (sums, averages over time)
+
+4. WALKS THROUGH REAL USE CASES: System monitoring, application metrics, financial tick data, IoT sensors.
+
+5. SHOWS QUERY PATTERNS: Rate calculations, anomaly detection, trend analysis.
+
+6. INCLUDES OPERATIONAL ASPECTS: Storage planning, retention strategy, cost optimization.
+
+7. DISCUSSES TOOLS: Prometheus, InfluxDB, TimescaleDB, CloudWatch—each with trade-offs.
+
+Help readers see time-series databases not as exotic, but essential for production observability.` },
+
+                    // Day 6: Caching Strategies
+                    { day: 6, title: 'Caching Fundamentals and Layers', prompt: `Master the multiplicative effect of layered caching:
+
+1. OPENS WITH LATENCY COMPARISON: Database queries (100ms) vs cache hits (1ms)—1000x difference.
+
+2. EXPLAINS CACHE LAYERS:
+   - Browser cache (client-side)
+   - CDN cache (geographic distribution)
+   - Application cache (in-process, Redis)
+   - Database cache (query results)
+   - Layering these multiplies benefits
+
+3. TEACHES CACHING PATTERNS:
+   - Cache-Aside (check cache, miss = fetch + cache)
+   - Read-Through (cache responsible for loading)
+   - Write-Through (write both places)
+   - Write-Behind (write cache, async to storage)
+
+4. DISCUSSES CONSISTENCY CHALLENGES: Cache invalidation, TTLs, consistency guarantees.
+
+5. SHOWS IMPLEMENTATION STRATEGIES: When each pattern makes sense, trade-offs.
+
+6. ADDRESSES MONITORING: Cache hit rates, eviction patterns, effectiveness analysis.
+
+7. INCLUDES PRODUCTION LESSONS: Facebook, Netflix—how they stack caches at every layer.
+
+Help readers understand caching as multiplier on system performance, not afterthought.` },
+
+                    { day: 6, title: 'Distributed Caching with Redis/Memcached', prompt: `Scale caching beyond single machine limits:
+
+1. OPENS WITH SCALE PROBLEM: Single cache server is bottleneck. How to distribute?
+
+2. EXPLAINS REDIS vs MEMCACHED:
+   - Redis: Data structures, persistence, pub/sub, persistence, Lua scripting
+   - Memcached: Simple key-value, pure speed, distributed responsibility
+
+3. TEACHES DISTRIBUTED ARCHITECTURE: Consistent hashing, replication, failure handling.
+
+4. WALKS THROUGH USE CASES:
+   - Session storage
+   - Rate limiting
+   - Leaderboards (sorted sets)
+   - Pub/sub messaging
+   - Cache-aside pattern implementation
+
+5. DISCUSSES OPERATIONAL CONCERNS: Eviction policies, memory limits, monitoring.
+
+6. SHOWS REAL DEPLOYMENTS: How Uber, Airbnb, Pinterest use Redis at massive scale.
+
+7. ADDRESSES RELIABILITY: Replication, failover, persistence options.
+
+Help readers see Redis as foundational infrastructure, not just caching layer.` },
+
+                    { day: 6, title: 'Cache Eviction Policies and Strategies', prompt: `Manage limited cache memory intelligently:
+
+1. OPENS WITH CONSTRAINT: Cache has finite memory. Data keeps arriving. What do you remove?
+
+2. EXPLAINS EVICTION POLICIES:
+   - LRU (Least Recently Used): Most common, works for most patterns
+   - LFU (Least Frequently Used): Better for skewed access patterns
+   - FIFO/Random: Simpler, acceptable in some cases
+   - TTL-based: Explicit expiration
+
+3. TEACHES POLICY SELECTION: Access patterns determine optimal strategy.
+
+4. WALKS THROUGH SCENARIOS:
+   - Uniform access (LRU sufficient)
+   - Temporal locality (LRU excellent)
+   - Zipfian distribution (LFU better)
+
+5. DISCUSSES MONITORING: Eviction rates, cache effectiveness, identifying bad choices.
+
+6. SHOWS CONFIGURATION: Redis, Memcached—how to set policies.
+
+7. INCLUDES PITFALL: Over-eviction indicates cache misalignment, fix cache size or strategy, not symptoms.
+
+Help readers see eviction as indication of cache sizing/design issues, solve root cause.` },
+
+                    // Day 7: Advanced Load Balancing
+                    { day: 7, title: 'Consistent Hashing', prompt: `Solve cache rebalancing elegantly through clever math:
+
+1. OPENS WITH PROBLEM: Add 1 server to 10-server cache cluster—with modulo hashing, 90% of keys rehash to wrong servers. Cache invalidation cascade.
+
+2. EXPLAINS CONSISTENT HASHING: Map servers and keys to a ring. Add server? Only nearby keys rebalance. Genius.
+
+3. WALKS THROUGH MECHANICS:
+   - Hash ring with virtual nodes
+   - Key routing: Find first server clockwise on ring
+   - Adding/removing servers: Minimal rehashing
+
+4. SHOWS THE MATHEMATICS: Why it works, distribution uniformity with virtual nodes.
+
+5. ADDRESSES LIMITATIONS: Not a silver bullet—requires careful virtual node count selection.
+
+6. SHOWS REAL USE CASES: Memcached clusters, load balancing, CDN edge distribution.
+
+7. DISCUSSES MONITORING: Detecting hotspots, uneven distribution, adjusting virtual nodes.
+
+Help readers see elegant algorithms that solve scaling problems, not just brute force.` },
+
+                    { day: 7, title: 'Service Discovery and Registration', prompt: `Enable dynamic infrastructure where services find each other:
+
+1. OPENS WITH MICROSERVICES CHAOS: 1000 microservices, each with 10 instances, IPs constantly changing. How does service A find service B?
+
+2. EXPLAINS DISCOVERY APPROACHES:
+   - Client-side: Client queries registry
+   - Server-side: Load balancer queries registry
+   - Trade-offs in complexity and resilience
+
+3. TEACHES REGISTRATION PATTERNS:
+   - Service registers on startup
+   - Health checks mark services unhealthy
+   - Deregistration on shutdown
+   - Handling failures (crashed services)
+
+4. WALKS THROUGH IMPLEMENTATION: Consul, etcd, Eureka—each with philosophy.
+
+5. DISCUSSES INTEGRATION WITH ORCHESTRATION: Kubernetes service discovery, built-in.
+
+6. SHOWS OPERATIONAL MONITORING: Registry consistency, detecting stale entries.
+
+7. INCLUDES FAILURE MODES: Registry down, cascading discovery failures, mitigation.
+
+Help readers see service discovery as critical infrastructure, enabled by containers.` },
+
+                    { day: 7, title: 'API Gateway Pattern', prompt: `Create single stable interface to microservices ecosystem:
+
+1. OPENS WITH MICROSERVICES PAIN: 50 services exposed directly = chaos. API Gateway = stability.
+
+2. EXPLAINS GATEWAY RESPONSIBILITIES:
+   - Routing (request to correct service)
+   - Authentication (unified identity)
+   - Rate limiting (protect services)
+   - Transformation (format adaptation)
+   - Aggregation (combine multiple service responses)
+
+3. WALKS THROUGH FLOWS: How requests traverse gateway, service selection logic.
+
+4. DISCUSSES PATTERNS:
+   - Single gateway (simplicity, bottleneck)
+   - Multiple gateways per region (scalability)
+   - Combining with service mesh (advanced)
+
+5. ADDRESSES OPERATIONAL CHALLENGES: Gateway scaling, debugging, failure modes.
+
+6. SHOWS EXAMPLES: Kong, AWS API Gateway, Netflix Zuul.
+
+7. INCLUDES EVOLUTION: From gateway to service mesh (Istio, Linkerd).
+
+Help readers see gateway as essential layer managing complexity of microservices.` },
+
+                    // Day 8: CAP Theorem and Consistency
+                    { day: 8, title: 'CAP Theorem Explained', prompt: `Understand the fundamental constraint in distributed systems:
+
+1. OPENS WITH NETWORK PARTITION: Systems spanning continents. Network split: Americas cut off from Europe. Can't communicate. Now what?
+
+2. EXPLAINS THE THEOREM: Choose 2 of 3 in presence of partition:
+   - Consistency (all nodes agree)
+   - Availability (system responds)
+   - Partition tolerance (survives network split)
+
+3. EMPHASIZES PARTITION IS MANDATORY: You can't avoid network failures. Choose C or A.
+
+4. WALKS THROUGH SCENARIOS:
+   - CP: Stop serving Americas, ensure consistency
+   - AP: Serve both, allow temporary inconsistency
+   - CA: Impossible if networks fail (partition must occur)
+
+5. DISCUSSES REAL SYSTEMS: Cassandra (AP), Google Spanner (CA despite distributed).
+
+6. ADDRESSES MISCONCEPTIONS: It's not about choosing at design time—choice emerges at partition.
+
+7. SHOWS APPLICATION IMPLICATIONS: How choice affects application logic, testing, failure handling.
+
+Help readers see CAP as law of physics in distributed systems, not opinion.` },
+
+                    { day: 8, title: 'Consistency Models', prompt: `Explore spectrum from strong to eventual consistency:
+
+1. OPENS WITH CHOICE: Strong consistency slow but safe. Eventual consistency fast but requires rethinking.
+
+2. EXPLAINS MODELS:
+   - Strong: Replicas always agree (expensive)
+   - Eventual: Replicas converge over time
+   - Causal: Cause-effect relationships preserved
+   - Read-Your-Writes: See your own changes immediately
+   - Monotonic Reads: Don't go backwards in time
+
+3. TEACHES TRADE-OFFS:
+   - Strong: Latency penalty, synchronous
+   - Eventual: Low latency, async, application complexity
+
+4. WALKS THROUGH PATTERNS:
+   - When each model is appropriate
+   - Application architectural implications
+   - Testing eventual consistency (hard!)
+
+5. SHOWS DATABASE OPTIONS: DynamoDB, Cassandra offer choices.
+
+6. ADDRESSES CHALLENGES: Application correctness with eventual consistency.
+
+7. INCLUDES REAL EXAMPLES: Social media likes (eventual), banking (strong).
+
+Help readers see consistency as spectrum, not binary, choose based on requirements.` },
+
+                    { day: 8, title: 'Consensus Algorithms: Paxos and Raft', prompt: `Solve agreement problem across unreliable servers:
+
+1. OPENS WITH DISTRIBUTED CONSENSUS CHALLENGE: Multiple replicas must agree on value despite failures, messages delays, crashes.
+
+2. EXPLAINS PAXOS:
+   - Provably correct
+   - Complex, hard to implement
+   - Used in Google Chubby, Apache Zookeeper
+
+3. EXPLAINS RAFT:
+   - Simpler than Paxos
+   - Equally robust
+   - Engineered for understandability
+   - Used in etcd, Consul
+
+4. WALKS THROUGH RAFT OPERATION: Leader election, log replication, safety.
+
+5. DISCUSSES OPERATIONAL ASPECTS:
+   - When to use consensus (critical data only)
+   - Performance implications (slower)
+   - Monitoring consensus health
+
+6. EMPHASIZES USING BATTLE-TESTED IMPLEMENTATIONS: Don't implement yourself.
+
+7. SHOWS REAL USAGE: Kubernetes uses etcd (Raft), database replication.
+
+Help readers respect consensus as solution to hard problem, use proven implementations.` },
+
+                    // Day 9: Distributed Systems Principles
+                    { day: 9, title: 'Distributed Transactions and 2PC', prompt: `Coordinate atomic operations across multiple databases:
+
+1. OPENS WITH HARD PROBLEM: Money transfer—debit account A, credit account B. System crashes between. Both could fail. Disaster.
+
+2. EXPLAINS TWO-PHASE COMMIT:
+   - Prepare phase: All parties agree they can commit
+   - Commit phase: All execute simultaneously
+   - Atomicity across systems
+
+3. WALKS THROUGH MECHANICS: Coordinator role, blocking issues, failure modes.
+
+4. DISCUSSES LIMITATIONS:
+   - Blocks on failures
+   - Coordinator becoming single point of failure
+   - Reduced availability during partition
+
+5. SHOWS ALTERNATIVES: Saga pattern (orchestrated or choreographed) better for most distributed systems.
+
+6. ADDRESSES REAL-WORLD ADVICE: Avoid 2PC when possible, use eventual consistency.
+
+7. INCLUDES ADVANCED PATTERNS: Compensating transactions, saga implementation.
+
+Help readers understand 2PC as tool of last resort, modern systems prefer sagas.` },
+
+                    { day: 9, title: 'Eventual Consistency Patterns', prompt: `Build correct systems without requiring strong consistency:
+
+1. OPENS WITH PARADIGM SHIFT: Social media likes appear instantly for you, eventually for everyone else. Works perfectly.
+
+2. EXPLAINS EVENTUAL CONSISTENCY: Systems converge to consistent state over time, temporary divergence acceptable.
+
+3. TEACHES PATTERNS:
+   - Last-Write-Wins (simple, sometimes incorrect)
+   - Vector Clocks (causal ordering)
+   - CRDTs (conflict-free data types)
+
+4. DISCUSSES APPLICATION DESIGN: Rethinking correctness in eventually consistent world.
+
+5. WALKS THROUGH EXAMPLES:
+   - Like counters (independent increments)
+   - Inventory (overallocation acceptable)
+   - Carts (concurrent modifications)
+
+6. ADDRESSES MONITORING: Detecting inconsistencies, measuring convergence time.
+
+7. SHOWS REAL SYSTEMS: Cassandra, DynamoDB, Facebook all rely on eventual consistency.
+
+Help readers see eventual consistency not as compromise, but elegant design choice.` },
+
+                    { day: 9, title: 'Distributed Locking', prompt: `Prevent concurrent access to shared resources:
+
+1. OPENS WITH PROBLEM: Database rebalancing—two coordinators try simultaneously. Need distributed lock.
+
+2. EXPLAINS LOCKING APPROACHES:
+   - Centralized lock (single point of failure)
+   - Distributed lock (requires majority agreement)
+   - Redlock (Redis-based, approximate)
+
+3. TEACHES LOCK ALGORITHMS: Ensuring safety, handling failures, preventing deadlock.
+
+4. DISCUSSES TRADE-OFFS:
+   - Simplicity vs robustness
+   - Performance implications
+   - Failure handling
+
+5. ADDRESSES REAL CHALLENGES:
+   - Network delays
+   - Clock skew
+   - Handling lock holder death
+
+6. EMPHASIZES PREFER IDEMPOTENCY: Locks are complex, idempotent operations better.
+
+7. SHOWS WHEN LOCKS ARE NECESSARY: Critical sections, resource contention.
+
+Help readers see locks as last resort, idempotency and eventual consistency preferred.` },
+
+                    // Day 10: Messaging & Event-Driven Architecture
+                    { day: 10, title: 'Message Queues Deep Dive', prompt: `Decouple services via asynchronous communication:
+
+1. OPENS WITH COUPLING PROBLEM: E-commerce—order service calls payment immediately. Payment down = orders fail.
+
+2. EXPLAINS DECOUPLING BENEFIT: Queue acts as buffer. Order saved, payment processes later.
+
+3. TEACHES QUEUE MODELS:
+   - Point-to-Point: One producer, one consumer
+   - Pub/Sub: One producer, many subscribers
+   - Each with different semantics
+
+4. EXPLAINS DELIVERY GUARANTEES:
+   - At-Least-Once (retried until acked)
+   - At-Most-Once (best effort)
+   - Exactly-Once (hardest, rare need)
+
+5. WALKS THROUGH IMPLEMENTATIONS: RabbitMQ (traditional), Kafka (event log), AWS SQS.
+
+6. DISCUSSES OPERATIONAL ASPECTS: Monitoring queue depth, handling poison messages.
+
+7. ADDRESSES FAILURE MODES: Consumer crashes, reprocessing, idempotency.
+
+Help readers see queues as fundamental building block for resilient systems.` },
+
+                    { day: 10, title: 'Event Streaming with Kafka', prompt: `Build event-driven systems at massive scale with immutable event log:
+
+1. OPENS WITH SCALE: LinkedIn—trillions of events daily. Traditional queues insufficient.
+
+2. EXPLAINS KAFKA MODEL:
+   - Append-only log (immutable history)
+   - Topics (event categories)
+   - Partitions (parallelism, ordering per partition)
+   - Consumer groups (coordinated reading)
+
+3. TEACHES KAFKA DESIGN PRINCIPLES:
+   - Durability (replication)
+   - Scalability (partitions)
+   - Ordering guarantees (per partition)
+   - Replay capability (log retention)
+
+4. WALKS THROUGH ARCHITECTURE: Brokers, ZooKeeper/KRaft, producers, consumers.
+
+5. DISCUSSES USE CASES:
+   - Event sourcing
+   - Stream processing
+   - Analytics pipelines
+   - Real-time dashboards
+
+6. SHOWS OPERATIONAL MONITORING: Lag, rebalancing, performance.
+
+7. ADDRESSES ECOSYSTEM: Stream processing (Spark, Flink), connectors.
+
+Help readers see Kafka as foundational platform for event-driven architecture.` },
+
+                    { day: 10, title: 'Event-Driven Architecture Patterns', prompt: `Build loosely coupled, scalable systems through events:
+
+1. OPENS WITH MONOLITH PAIN: Order service calls payment, shipping, analytics. One down cascades. Event-driven inverts flow.
+
+2. EXPLAINS PATTERNS:
+   - Event Sourcing (store all events, rebuild state)
+   - CQRS (separate read and write models)
+   - Choreography (services coordinate via events)
+   - Orchestration (central coordinator directs)
+
+3. TEACHES DESIGN PRINCIPLES:
+   - Loose coupling (services independent)
+   - Resilience (async, eventual)
+   - Auditability (events are history)
+   - Scalability (parallel processing)
+
+4. WALKS THROUGH WORKFLOWS:
+   - Choreography: Order → Payment → Shipping (sequential events)
+   - Orchestration: Orchestrator sends commands, handles responses
+
+5. DISCUSSES TRADE-OFFS:
+   - Choreography simpler, harder to debug
+   - Orchestration centralized, single point of failure risk
+
+6. SHOWS REAL IMPLEMENTATIONS: Netflix (event-driven), Airbnb (choreography).
+
+7. ADDRESSES CHALLENGES: Distributed tracing, debugging event flows, consistency.
+
+Help readers see event-driven architecture as evolution beyond microservices.` },
+
+                    // Day 11: Reliability & Fault Tolerance
+                    { day: 11, title: 'Designing for Failure', prompt: `Build systems assuming failure is guaranteed:
+
+1. OPENS WITH PHILOSOPHY: Netflix's "Everything fails, all the time." Embrace this. Design around it.
+
+2. TEACHES STRATEGIES:
+   - Redundancy (multiple copies, no single point of failure)
+   - Bulkheads (isolation prevents cascade)
+   - Graceful degradation (reduce features if degraded)
+   - Chaos engineering (intentionally inject failures)
+
+3. WALKS THROUGH FAILURES:
+   - Server crashes (traffic rerouted)
+   - Database fails (replica takes over)
+   - Network partition (breaker activates, degrade)
+   - Slow service (timeout + circuit breaker)
+
+4. DISCUSSES DETECTION & RECOVERY: Health checks, automatic failover, graceful shutdown.
+
+5. SHOWS TESTING STRATEGIES: Chaos monkey, fault injection, failure scenario planning.
+
+6. ADDRESSES CULTURAL CHANGE: Blameless postmortems, learning from failures.
+
+7. INCLUDES REAL EXAMPLES: Netflix Chaos Monkey, Amazon's operational excellence.
+
+Help readers see failure as expected, design proactively.` },
+
+                    { day: 11, title: 'Circuit Breakers and Retry Logic', prompt: `Prevent cascading failures through intelligent request handling:
+
+1. OPENS WITH FAILURE CASCADE: Service A calls B, B overloaded. A retries, makes it worse. Thundering herd. System collapses.
+
+2. EXPLAINS CIRCUIT BREAKER: Three states (Closed, Open, Half-Open) prevent cascading.
+
+3. TEACHES RETRY STRATEGIES: Exponential backoff, jitter, retry budget.
+
+4. WALKS THROUGH COMBINATIONS: Circuit breaker wraps retry logic.
+
+5. DISCUSSES CONFIGURATION: Thresholds, timeouts, tuning.
+
+6. SHOWS IMPLEMENTATION: Hystrix, resilience4j libraries.
+
+7. ADDRESSES MONITORING: Circuit breaker state, retry rates.
+
+Help readers see these as defensive layers, each necessary.` },
+
+                    { day: 11, title: 'Rate Limiting and Throttling', prompt: `Protect services from overload through request gating:
+
+1. OPENS WITH ATTACK: Million bot requests. Without rate limiting, system overloaded.
+
+2. EXPLAINS ALGORITHMS: Token Bucket, Leaky Bucket, Sliding Window, Fixed Window.
+
+3. TEACHES DISTRIBUTED RATE LIMITING: Coordinating limits across servers.
+
+4. WALKS THROUGH DESIGN: Per-user vs global, token cost, fair queuing.
+
+5. DISCUSSES COMMUNICATION: 429 responses with retry-after.
+
+6. SHOWS IMPLEMENTATIONS: API gateways, libraries.
+
+7. ADDRESSES MONITORING: Detecting rate limit exceedances.
+
+Help readers see rate limiting as essential protection.` },
+
+                    // Day 12: Observability & Monitoring
+                    { day: 12, title: 'Logging, Metrics, and Tracing', prompt: `Build systems you can understand and debug:
+
+1. OPENS WITH MYSTERY: Production issue. Logs show what. Metrics show when. Traces show where and why.
+
+2. EXPLAINS THREE PILLARS: Logs (events), Metrics (quantitative), Tracing (flow).
+
+3. TEACHES IMPLEMENTATION: Structured logging, instrumentation, distributed tracing.
+
+4. WALKS THROUGH ANALYSIS: Using all three together.
+
+5. DISCUSSES TOOLS: ELK, Prometheus, Jaeger, Splunk.
+
+6. ADDRESSES VOLUME: Storage costs, retention policies.
+
+7. INCLUDES BEST PRACTICES: Sampling, aggregation, alerting.
+
+Help readers see observability as prerequisite for reliability.` },
+
+                    { day: 12, title: 'Alerting and On-Call Best Practices', prompt: `Alert when action is needed, not when noise occurs:
+
+1. OPENS WITH ALERT FATIGUE: Ignored alerts = missed outages. Focus.
+
+2. EXPLAINS PROPER METRICS: SLI, SLO, SLA, error budgets.
+
+3. TEACHES ALERT DESIGN: Outcomes not metrics, severity levels, actionability.
+
+4. WALKS THROUGH ON-CALL: Schedules, escalation, postmortems.
+
+5. DISCUSSES TOOLING: PagerDuty, Opsgenie.
+
+6. ADDRESSES CULTURE: On-call responsibility, learning from incidents.
+
+7. INCLUDES MONITORING: Is alerting effective?
+
+Help readers balance signal and noise.` },
+
+                    { day: 12, title: 'Application Performance Monitoring', prompt: `Identify bottlenecks before users complain:
+
+1. OPENS WITH SYMPTOM: Users slow. APM reveals: new query, 80% time. Fix: index.
+
+2. EXPLAINS APM VALUE: Real-time visibility, dependency mapping, bottlenecks.
+
+3. TEACHES INSTRUMENTATION: Where and what to measure.
+
+4. WALKS THROUGH ANALYSIS: Latency distribution, call graphs, resources.
+
+5. DISCUSSES DRILL-DOWN: High-level slow to specific bottleneck.
+
+6. SHOWS TOOLS: New Relic, Datadog, Dynatrace.
+
+7. ADDRESSES PRODUCTION PROFILING: Sampling strategies.
+
+Help readers catch problems early.` },
+
+                    // Day 13: Security Fundamentals
+                    { day: 13, title: 'Authentication and Authorization', prompt: `Verify identity and enforce permissions systematically:
+
+1. OPENS WITH DEFINITIONS: Authentication (who?), Authorization (what?). Both essential.
+
+2. TEACHES AUTHENTICATION: Passwords, OAuth 2.0, JWT, MFA.
+
+3. TEACHES AUTHORIZATION: RBAC, ABAC, scope-based.
+
+4. WALKS THROUGH FLOWS: Login, token generation, validation.
+
+5. DISCUSSES SECURITY: Password hashing, token expiration, secure storage.
+
+6. SHOWS IMPLEMENTATIONS: OAuth providers, JWT libraries.
+
+7. ADDRESSES ADVANCED: Session management, CORS, CSRF.
+
+Help readers implement carefully.` },
+
+                    { day: 13, title: 'Encryption and Data Security', prompt: `Protect data at rest and in transit:
+
+1. OPENS WITH BREACH: Database stolen, plaintext passwords. Preventable.
+
+2. EXPLAINS ENCRYPTION: Symmetric (AES), Asymmetric (RSA), Hashing.
+
+3. TEACHES IMPLEMENTATION: TLS for transit, database encryption, KMS.
+
+4. WALKS THROUGH CHALLENGES: Key storage, rotation, performance.
+
+5. DISCUSSES TOOLS: AWS KMS, HashiCorp Vault.
+
+6. SHOWS BEST PRACTICES: Encrypting sensitive fields.
+
+7. ADDRESSES COMPLIANCE: GDPR, HIPAA, regulations.
+
+Help readers see encryption as fundamental.` },
+
+                    { day: 13, title: 'DDoS Protection and Security Layers', prompt: `Defend against attacks at multiple levels:
+
+1. OPENS WITH ATTACK: DDoS floods unprotected system. Multiple layers needed.
+
+2. EXPLAINS LAYERS: Network, CDN, WAF, application.
+
+3. WALKS THROUGH ATTACK TYPES: Volumetric, protocol, application.
+
+4. TEACHES DEFENSES: Rate limiting, IP filtering, challenges, traffic shaping.
+
+5. DISCUSSES TOOLS: Cloudflare, AWS Shield, Akamai.
+
+6. SHOWS REAL-TIME: Detection, escalation, mitigation.
+
+7. INCLUDES TESTING: Authorized penetration testing, simulation.
+
+Help readers see defense-in-depth, no single solution.` },
+
+                    // Day 14: API & Gateway Design
+                    { day: 14, title: 'RESTful API Best Practices', prompt: `Design APIs that scale, last, and stay maintainable:
+
+1. OPENS WITH HISTORY: Pre-REST chaos → REST brings order.
+
+2. TEACHES REST: Resources (nouns), methods, statelessness, cacheability, status codes.
+
+3. WALKS THROUGH DESIGN: Naming, HTTP semantics, proper codes, pagination.
+
+4. ADDRESSES PAGINATION: Cursor-based beats offset.
+
+5. DISCUSSES EVOLUTION: Versioning, deprecation strategy.
+
+6. SHOWS EXEMPLARY: Stripe, GitHub, Twitter—as reference.
+
+7. INCLUDES ADVANCED: Webhooks, CORS, rate limiting design.
+
+Help readers make good design decisions.` },
+
+                    { day: 14, title: 'GraphQL vs REST', prompt: `Choose query language matching client needs:
+
+1. OPENS WITH CONTRAST: Mobile app needs user+posts+comments. REST: 3 calls. GraphQL: 1.
+
+2. EXPLAINS GRAPHQL: Precise fetching, flexible, type system, introspection.
+
+3. EXPLAINS REST: Simplicity, maturity, HTTP compliance, statelessness.
+
+4. TEACHES DECISION FRAMEWORK: GraphQL for complex. REST for simple. Hybrid common.
+
+5. WALKS THROUGH GRAPHQL: Schema, resolvers, subscriptions.
+
+6. DISCUSSES OPERATIONAL: Query complexity, monitoring, caching.
+
+7. SHOWS REAL USAGE: GitHub, Shopify.
+
+Help readers see as complementary.` },
+
+                    { day: 14, title: 'API Versioning and Evolution', prompt: `Maintain backward compatibility while evolving:
+
+1. OPENS WITH CONSTRAINT: Millions of clients. Can't break them. New features needed.
+
+2. EXPLAINS STRATEGIES: URI versioning (/v1/), headers, semantic versioning.
+
+3. TEACHES COMPATIBILITY: Adding fields (safe), renaming (breaking).
+
+4. WALKS THROUGH DEPRECATION: Announce, guide, support, sunset.
+
+5. DISCUSSES TOOLING: Versioning frameworks, documentation.
+
+6. SHOWS EXAMPLES: Stripe's versioning masterclass.
+
+7. ADDRESSES COMMUNICATION: Awareness, support, migrations.
+
+Help readers see as strategic challenge.` },
+
+                    // Day 15: Case Studies & Practice
+                    { day: 15, title: 'Design URL Shortener (Case Study)', prompt: `Apply system design concepts to real problem:
+
+1. OPENS WITH REQUIREMENTS: Billions of mappings, instant redirects, 99.99% uptime.
+
+2. WALKS THROUGH ESTIMATION: QPS, data, sharding needs.
+
+3. TEACHES DESIGN: URL encoding (Base62), database (key-value), caching (Redis), replication.
+
+4. WALKS THROUGH ARCHITECTURE: Components, data flow, scaling.
+
+5. DISCUSSES DEEP DIVES: Collisions, custom aliases, analytics.
+
+6. ADDRESSES CHALLENGES: Hot URL optimization, deletion, privacy.
+
+7. SHOWS VARIATIONS: Private, expiring links, branded.
+
+Help readers practice framework.` },
+
+                    { day: 15, title: 'Design Chat System (Case Study)', prompt: `Build real-time messaging at scale:
+
+1. OPENS WITH REQUIREMENTS: Billions of messages, instant, offline queueing, read receipts.
+
+2. WALKS THROUGH ARCHITECTURE: WebSockets, append-only log, presence, offline queue.
+
+3. TEACHES DESIGN DECISIONS: When each component needed, trade-offs.
+
+4. DISCUSSES CHALLENGES: Connection management, ordering, consistency, encryption.
+
+5. SHOWS SCALING: Partitioning by conversation, load balancing.
+
+6. ADDRESSES OPERATIONAL: Monitoring, debugging, connection limits.
+
+7. INCLUDES VARIATIONS: Group chat, file sharing, search.
+
+Help readers understand real-time complexity.` },
+
+                    { day: 15, title: 'Design News Feed (Case Study)', prompt: `Build ranking and personalization at scale:
+
+1. OPENS WITH CHALLENGE: 3B users, generation expensive, ranking matters.
+
+2. WALKS THROUGH TRADE-OFFS: Pull (fresh, slow) vs Push (fast, complex) vs Hybrid (best).
+
+3. TEACHES DESIGN: Hybrid approach, ML ranking, caching, partitioning.
+
+4. WALKS THROUGH IMPLEMENTATION: Fan-out, ranking, caching, staleness.
+
+5. DISCUSSES CHALLENGES: Thundering herd, consistency, search, ads.
+
+6. SHOWS EVOLUTION: Facebook's journey.
+
+7. ADDRESSES OPERATIONAL: Ranking effectiveness, A/B testing.
+
+Help readers balance push and pull, importance of ranking.` },
+
+                    { day: 15, title: 'Mock Interview Preparation', prompt: `Practice system design under realistic conditions:
+
+1. OPENS WITH MINDSET: No perfect answer. Assess thinking, communication, depth, flexibility.
+
+2. TEACHES FRAMEWORK: Clarify requirements → estimate → high-level → detailed → bottlenecks → trade-offs → follow-ups.
+
+3. WALKS THROUGH REAL INTERVIEW: Candidate clarifies, proposes, answers deep questions.
+
+4. EMPHASIZES: Clarity > perfection. Think aloud. Acknowledge trade-offs.
+
+5. TEACHES DOMAIN KNOWLEDGE: Understand real systems (YouTube, Instagram, Uber).
+
+6. SHOWS COMMON FOLLOW-UPS: "10x growth?" "Service failure?" "Regional scaling?"
+
+7. ADDRESSES NERVES: Practice, preparation, clear communication.
+
+Help readers build confidence through practice.` },
+                ]
+            }
+        };
+
+        // ==================== INITIALIZATION ====================
+        function init() {
+            loadSettings();
+            loadProgress();
+            renderLearningPaths();
+            applyTheme();
+        }
+
+        function loadSettings() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const savedApiKey = localStorage.getItem('groq_api_key') || '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';
+            const savedModel = localStorage.getItem('groq_model') || 'llama-3.3-70b-versatile';
+            
+            APP_STATE.theme = savedTheme;
+            APP_STATE.apiKey = savedApiKey;
+            APP_STATE.model = savedModel;
+            
+            document.getElementById('apiKeyInput').value = savedApiKey;
+            document.getElementById('modelSelect').value = savedModel;
+            
+            // Clear old cache on format upgrade
+            clearOldCache();
+        }
+
+        function clearOldCache() {
+            // Clear concept cache to regenerate with new formatting
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('concept_')) {
+                    localStorage.removeItem(key);
+                }
+            });
+        }
+
+        function loadProgress() {
+            const savedPath = localStorage.getItem('currentPath');
+            const savedIndex = localStorage.getItem('currentConceptIndex');
+            
+            if (savedPath) {
+                APP_STATE.currentPath = savedPath;
+                APP_STATE.currentConceptIndex = parseInt(savedIndex) || 0;
+            }
+        }
+
+        // ==================== THEME ====================
+        function toggleTheme() {
+            APP_STATE.theme = APP_STATE.theme === 'light' ? 'dark' : 'light';
+            applyTheme();
+            localStorage.setItem('theme', APP_STATE.theme);
+        }
+
+        function applyTheme() {
+            document.body.className = APP_STATE.theme + '-mode';
+        }
+
+        // ==================== SETTINGS ====================
+        function openSettings() {
+            document.getElementById('settingsModal').classList.add('active');
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+
+        function saveSettings() {
+            const apiKey = document.getElementById('apiKeyInput').value.trim();
+            const model = document.getElementById('modelSelect').value;
+            
+            if (!apiKey) {
+                alert('Please enter a valid Groq API key');
+                return;
+            }
+            
+            APP_STATE.apiKey = apiKey;
+            APP_STATE.model = model;
+            
+            localStorage.setItem('groq_api_key', apiKey);
+            localStorage.setItem('groq_model', model);
+            
+            closeSettings();
+            alert('Settings saved successfully!');
+        }
+
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                // Clear all learning progress
+                Object.keys(localStorage).forEach(key => {
+                    if (key.startsWith('concept_') || key.startsWith('quiz_') || 
+                        key.startsWith('progress_') || key.startsWith('stats_')) {
+                        localStorage.removeItem(key);
+                    }
+                });
+                
+                APP_STATE.currentConceptIndex = 0;
+                localStorage.removeItem('currentPath');
+                localStorage.removeItem('currentConceptIndex');
+                
+                closeSettings();
+                goHome();
+                alert('All progress has been reset.');
+            }
+        }
+
+        // ==================== NAVIGATION ====================
+        function goHome() {
+            document.getElementById('homeView').classList.add('active');
+            document.getElementById('learningView').classList.remove('active');
+            document.getElementById('historyView').classList.remove('active');
+            APP_STATE.isQuizMode = false;
+            renderLearningPaths();
+        }
+
+        function startLearningPath(pathId) {
+            if (!APP_STATE.apiKey) {
+                alert('Please configure your Groq API key in Settings first.');
+                openSettings();
+                return;
+            }
+            
+            APP_STATE.currentPath = pathId;
+            APP_STATE.currentConceptIndex = parseInt(localStorage.getItem(`progress_${pathId}`)) || 0;
+            
+            localStorage.setItem('currentPath', pathId);
+            
+            document.getElementById('homeView').classList.remove('active');
+            document.getElementById('learningView').classList.add('active');
+            document.getElementById('historyView').classList.remove('active');
+            
+            loadConcept();
+        }
+
+        function returnToLearning() {
+            document.getElementById('homeView').classList.remove('active');
+            document.getElementById('learningView').classList.add('active');
+            document.getElementById('historyView').classList.remove('active');
+            loadConcept();
+        }
+
+        function nextConcept() {
+            const path = LEARNING_PATHS[APP_STATE.currentPath];
+            if (APP_STATE.currentConceptIndex < path.concepts.length - 1) {
+                APP_STATE.currentConceptIndex++;
+                localStorage.setItem('currentConceptIndex', APP_STATE.currentConceptIndex);
+                loadConcept();
+            }
+        }
+
+        function prevConcept() {
+            if (APP_STATE.currentConceptIndex > 0) {
+                APP_STATE.currentConceptIndex--;
+                localStorage.setItem('currentConceptIndex', APP_STATE.currentConceptIndex);
+                loadConcept();
+            }
+        }
+
+        // ==================== RENDERING ====================
+        function renderLearningPaths() {
+            const container = document.getElementById('learningPaths');
+            container.innerHTML = '';
+            
+            Object.values(LEARNING_PATHS).forEach(path => {
+                const progress = calculatePathProgress(path.id);
+                const card = document.createElement('div');
+                card.className = 'path-card';
+                card.onclick = () => startLearningPath(path.id);
+                
+                card.innerHTML = `
+                    <div class="path-icon">${path.icon}</div>
+                    <div class="path-title">${path.title}</div>
+                    <div class="path-description">${path.description}</div>
+                    <div class="path-stats">
+                        <span>📚 ${path.concepts.length} Concepts</span>
+                        <span>📅 ${path.estimatedDays} Days</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                    <div class="path-actions">
+                        <button class="btn btn-primary">
+                            ${progress > 0 ? 'Continue Learning' : 'Start Learning'}
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        function calculatePathProgress(pathId) {
+            const path = LEARNING_PATHS[pathId];
+            let completed = 0;
+            
+            path.concepts.forEach((_, index) => {
+                const quizKey = `quiz_${pathId}_${index}`;
+                const quizData = localStorage.getItem(quizKey);
+                if (quizData) {
+                    const data = JSON.parse(quizData);
+                    if (data.attempts && data.attempts.length > 0) {
+                        completed++;
+                    }
+                }
+            });
+            
+            return Math.round((completed / path.concepts.length) * 100);
+        }
+
+        // ==================== CONCEPT LOADING ====================
+        async function loadConcept() {
+            APP_STATE.isQuizMode = false;
+            const path = LEARNING_PATHS[APP_STATE.currentPath];
+            const concept = path.concepts[APP_STATE.currentConceptIndex];
+            const conceptKey = `concept_${APP_STATE.currentPath}_${APP_STATE.currentConceptIndex}`;
+            
+            updateProgressSidebar();
+            updateNavigationButtons();
+            
+            const container = document.getElementById('contentContainer');
+            
+            // Check if concept is cached
+            const cached = localStorage.getItem(conceptKey);
+            if (cached) {
+                const data = JSON.parse(cached);
+                renderConcept(data);
+                return;
+            }
+            
+            // Generate concept using AI
+            container.innerHTML = `
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Generating personalized content...</div>
+                </div>
+            `;
+            
+            try {
+                const content = await generateContent(concept.prompt);
+                const conceptData = {
+                    title: concept.title,
+                    content: content,
+                    day: concept.day,
+                    timestamp: Date.now()
+                };
+                
+                localStorage.setItem(conceptKey, JSON.stringify(conceptData));
+                renderConcept(conceptData);
+            } catch (error) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px;">
+                        <h2 style="color: var(--danger); margin-bottom: 20px;">⚠️ Error Loading Content</h2>
+                        <p style="margin-bottom: 20px;">${error.message}</p>
+                        <button class="btn btn-primary" onclick="loadConcept()">Try Again</button>
+                    </div>
+                `;
+            }
+        }
+
+        function renderConcept(data) {
+            const container = document.getElementById('contentContainer');
+            container.innerHTML = `
+                <div class="concept-header">
+                    <div class="concept-header-content">
+                        <div class="concept-title">${data.title}</div>
+                        <div class="concept-meta">
+                            <span>📅 Day ${data.day}</span>
+                            <span>📖 Concept ${APP_STATE.currentConceptIndex + 1} of ${LEARNING_PATHS[APP_STATE.currentPath].concepts.length}</span>
+                        </div>
+                    </div>
+                    <button class="regenerate-btn" onclick="regenerateContent()" title="Generate new content for this concept">
+                        🔄 Regenerate
+                    </button>
+                </div>
+                <div class="concept-content">${formatContent(data.content)}</div>
+            `;
+        }
+
+        function regenerateContent() {
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = '⏳ Regenerating...';
+            
+            // Clear cache for this concept
+            const cacheKey = `concept_${APP_STATE.currentPath}_${APP_STATE.currentConceptIndex}`;
+            localStorage.removeItem(cacheKey);
+            
+            // Reload concept (will fetch fresh from API)
+            loadConcept().then(() => {
+                // Re-enable button
+                const newBtn = document.querySelector('.regenerate-btn');
+                if (newBtn) {
+                    newBtn.disabled = false;
+                    newBtn.textContent = '🔄 Regenerate';
+                }
+            }).catch(() => {
+                btn.disabled = false;
+                btn.textContent = '🔄 Regenerate';
+            });
+        }
+
+        function formatContent(content) {
+            // First, extract and preserve code blocks
+            const codeBlocks = [];
+            let processedContent = content.replace(/```[\s\S]*?```/g, (match) => {
+                codeBlocks.push(match);
+                return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+            });
+
+            let html = '';
+            
+            // Split into lines to process structured content
+            const lines = processedContent.split('\n');
+            let i = 0;
+            
+            while (i < lines.length) {
+                const line = lines[i];
+                const trimmed = line.trim();
+                
+                // Skip empty lines
+                if (!trimmed) {
+                    i++;
+                    continue;
+                }
+                
+                // Handle headers
+                if (trimmed.match(/^#{1,3}\s/)) {
+                    const level = trimmed.match(/^#+/)[0].length;
+                    const title = trimmed.replace(/^#+\s+/, '');
+                    html += `<h${level}>${title}</h${level}>`;
+                    i++;
+                    continue;
+                }
+                
+                // Handle structured boxes - can appear inline or standalone
+                const boxTypes = [
+                    { marker: 'STORY', class: 'story-box', icon: '📖' },
+                    { marker: 'ANALOGY', class: 'analogy-box', icon: '💡' },
+                    { marker: 'EXAMPLE', class: 'example-box', icon: '💻' },
+                    { marker: 'WARNING', class: 'warning-box', icon: '⚠️' },
+                    { marker: 'TIP', class: 'tip-box', icon: '✨' },
+                    { marker: 'REAL-WORLD', class: 'real-world-box', icon: '🚀' }
+                ];
+                
+                let foundBox = false;
+                for (const boxType of boxTypes) {
+                    if (trimmed.includes(`[${boxType.marker}]`)) {
+                        // Extract content after the marker
+                        const match = trimmed.match(new RegExp(`\\[${boxType.marker}\\]\\s*(.*)`));
+                        if (match) {
+                            let boxContent = match[1];
+                            
+                            // Collect following lines until we hit a marker or empty line
+                            i++;
+                            while (i < lines.length) {
+                                const nextLine = lines[i].trim();
+                                if (!nextLine) break;
+                                if (nextLine.match(/^\[(?:STORY|ANALOGY|EXAMPLE|WARNING|TIP|REAL-WORLD)\]/)) break;
+                                if (nextLine.match(/^#{1,3}\s/)) break;
+                                if (nextLine.match(/^[-•*]\s/) || nextLine.match(/^\d+\.\s/)) break;
+                                
+                                boxContent += '\n' + nextLine;
+                                i++;
+                            }
+                            
+                            html += `<div class="content-box ${boxType.class}"><strong class="box-title">${boxType.icon} ${boxType.marker.charAt(0) + boxType.marker.slice(1).toLowerCase()}</strong>${formatInlineContent(boxContent)}</div>`;
+                            foundBox = true;
+                            break;
+                        }
+                    }
+                }
+                
+                if (foundBox) continue;
+                
+                // Handle ordered lists
+                if (trimmed.match(/^\d+\.\s/)) {
+                    html += '<ol>';
+                    while (i < lines.length && lines[i].trim().match(/^\d+\.\s/)) {
+                        const content = lines[i].trim().replace(/^\d+\.\s+/, '');
+                        html += `<li>${formatInlineContent(content)}</li>`;
+                        i++;
+                    }
+                    html += '</ol>';
+                    continue;
+                }
+                
+                // Handle unordered lists
+                if (trimmed.match(/^[-•*]\s/)) {
+                    html += '<ul>';
+                    while (i < lines.length && lines[i].trim().match(/^[-•*]\s/)) {
+                        const content = lines[i].trim().replace(/^[-•*]\s+/, '');
+                        html += `<li>${formatInlineContent(content)}</li>`;
+                        i++;
+                    }
+                    html += '</ul>';
+                    continue;
+                }
+                
+                // Handle blockquotes
+                if (trimmed.match(/^>\s/)) {
+                    html += '<blockquote>';
+                    while (i < lines.length && lines[i].trim().match(/^>\s/)) {
+                        const content = lines[i].trim().replace(/^>\s+/, '');
+                        html += formatInlineContent(content);
+                        i++;
+                    }
+                    html += '</blockquote>';
+                    continue;
+                }
+                
+                // Regular paragraph
+                html += `<p>${formatInlineContent(trimmed)}</p>`;
+                i++;
+            }
+            
+            // Restore code blocks
+            html = html.replace(/__CODE_BLOCK_(\d+)__/g, (match, idx) => {
+                const codeBlock = codeBlocks[parseInt(idx)];
+                const codeContent = codeBlock.replace(/^```[\w]*\n?([\s\S]*?)\n?```$/m, '$1');
+                return '<pre><code>' + escapeHtml(codeContent) + '</code></pre>';
+            });
+            
+            return html;
+        }
+
+        function formatInlineContent(text) {
+            // Handle key concepts with {braces}
+            text = text.replace(/\*\*\{([^}]+)\}\*\*/g, '<span class="key-concept">$1</span>');
+            
+            // Handle highlights
+            text = text.replace(/==([^=]+)==/g, '<span class="highlight">$1</span>');
+            
+            // Handle bold
+            text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            
+            // Handle italics
+            text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+            
+            // Handle inline code
+            text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+            
+            return text;
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // ==================== QUIZ SYSTEM ====================
+        async function startQuiz() {
+            if (!APP_STATE.apiKey) {
+                alert('Please configure your Groq API key in Settings first.');
+                openSettings();
+                return;
+            }
+            
+            APP_STATE.isQuizMode = true;
+            const container = document.getElementById('contentContainer');
+            
+            container.innerHTML = `
+                <div class="quiz-container">
+                    <div class="quiz-header">
+                        <div class="quiz-title">Quiz: ${LEARNING_PATHS[APP_STATE.currentPath].concepts[APP_STATE.currentConceptIndex].title}</div>
+                        <div class="quiz-meta">
+                            <span>Select difficulty level to generate quiz</span>
+                        </div>
+                    </div>
+                    <div class="difficulty-selector">
+                        <button class="difficulty-btn" onclick="generateQuiz('easy')">Easy</button>
+                        <button class="difficulty-btn" onclick="generateQuiz('medium')">Medium</button>
+                        <button class="difficulty-btn" onclick="generateQuiz('hard')">Hard</button>
+                        <button class="difficulty-btn" onclick="generateQuiz('expert')">Expert</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function generateQuiz(difficulty) {
+            const concept = LEARNING_PATHS[APP_STATE.currentPath].concepts[APP_STATE.currentConceptIndex];
+            const container = document.getElementById('contentContainer');
+            
+            container.innerHTML = `
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Generating ${difficulty} quiz...</div>
+                </div>
+            `;
+            
+            try {
+                const quizPrompt = `Generate a ${difficulty} level quiz for the topic: "${concept.title}". 
+
+Create 5 multiple-choice questions that test:
+- Conceptual understanding
+- Scenario-based reasoning
+- Design decision trade-offs
+- Architecture selection logic
+
+For ${difficulty} level:
+${difficulty === 'easy' ? '- Focus on basic concepts and definitions' : ''}
+${difficulty === 'medium' ? '- Include scenario-based questions and basic trade-offs' : ''}
+${difficulty === 'hard' ? '- Focus on complex scenarios, edge cases, and deep trade-offs' : ''}
+${difficulty === 'expert' ? '- Include advanced scenarios, multiple constraint optimization, and real-world complexity' : ''}
+
+Format your response as a JSON array with this structure:
+[
+  {
+    "question": "Question text here",
+    "options": ["Option A", "Option B", "Option C", "Option D"],
+    "correctAnswer": 0,
+    "explanation": "Detailed explanation of why this is correct and others are wrong"
+  }
+]
+
+Return ONLY the JSON array, no other text.`;
+
+                const quizData = await generateContent(quizPrompt);
+                const questions = JSON.parse(quizData);
+                
+                renderQuiz(questions, difficulty);
+            } catch (error) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px;">
+                        <h2 style="color: var(--danger); margin-bottom: 20px;">⚠️ Error Generating Quiz</h2>
+                        <p style="margin-bottom: 20px;">${error.message}</p>
+                        <button class="btn btn-primary" onclick="startQuiz()">Try Again</button>
+                    </div>
+                `;
+            }
+        }
+
+        let currentQuiz = null;
+        let userAnswers = [];
+
+        function renderQuiz(questions, difficulty) {
+            currentQuiz = { questions, difficulty, userAnswers: [] };
+            userAnswers = new Array(questions.length).fill(null);
+            
+            const container = document.getElementById('contentContainer');
+            let html = `
+                <div class="quiz-container">
+                    <div class="quiz-header">
+                        <div class="quiz-title">Quiz: ${LEARNING_PATHS[APP_STATE.currentPath].concepts[APP_STATE.currentConceptIndex].title}</div>
+                        <div class="quiz-meta">
+                            <span>📊 Difficulty: ${difficulty.toUpperCase()}</span>
+                            <span>❓ ${questions.length} Questions</span>
+                        </div>
+                    </div>
+            `;
+            
+            questions.forEach((q, qIndex) => {
+                html += `
+                    <div class="question-card" id="question-${qIndex}">
+                        <div class="question-number">Question ${qIndex + 1}</div>
+                        <div class="question-text">${q.question}</div>
+                        <div class="options-list">
+                `;
+                
+                q.options.forEach((option, oIndex) => {
+                    html += `
+                        <div class="option" onclick="selectOption(${qIndex}, ${oIndex})">
+                            <input type="radio" name="question-${qIndex}" id="q${qIndex}-o${oIndex}" style="margin-right: 10px;">
+                            <label for="q${qIndex}-o${oIndex}">${option}</label>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    <div class="quiz-actions">
+                        <button class="btn btn-primary" onclick="submitQuiz()">Submit Quiz</button>
+                        <button class="btn btn-secondary" onclick="startQuiz()">Regenerate Quiz</button>
+                        <button class="btn btn-secondary" onclick="loadConcept()">Back to Concept</button>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            userAnswers[questionIndex] = optionIndex;
+            
+            // Update UI
+            const questionCard = document.getElementById(`question-${questionIndex}`);
+            const options = questionCard.querySelectorAll('.option');
+            options.forEach((opt, idx) => {
+                opt.classList.remove('selected');
+                if (idx === optionIndex) {
+                    opt.classList.add('selected');
+                }
+            });
+        }
+
+        function submitQuiz() {
+            if (userAnswers.includes(null)) {
+                alert('Please answer all questions before submitting.');
+                return;
+            }
+            
+            const questions = currentQuiz.questions;
+            let correct = 0;
+            
+            questions.forEach((q, qIndex) => {
+                const questionCard = document.getElementById(`question-${qIndex}`);
+                const options = questionCard.querySelectorAll('.option');
+                
+                options.forEach((opt, oIndex) => {
+                    opt.style.pointerEvents = 'none';
+                    
+                    if (oIndex === q.correctAnswer) {
+                        opt.classList.add('correct');
+                    }
+                    
+                    if (oIndex === userAnswers[qIndex] && oIndex !== q.correctAnswer) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                
+                if (userAnswers[qIndex] === q.correctAnswer) {
+                    correct++;
+                }
+                
+                // Add explanation
+                const explanation = document.createElement('div');
+                explanation.style.cssText = 'margin-top: 15px; padding: 15px; background: rgba(99, 102, 241, 0.1); border-radius: 8px; font-size: 14px;';
+                explanation.innerHTML = `<strong>Explanation:</strong> ${q.explanation}`;
+                questionCard.appendChild(explanation);
+            });
+            
+            const score = Math.round((correct / questions.length) * 100);
+            
+            // Save quiz attempt
+            saveQuizAttempt(score, correct, questions.length, currentQuiz.difficulty);
+            
+            // Show results
+            showQuizResults(score, correct, questions.length);
+            
+            // Enable next concept if passed
+            if (score >= 70) {
+                const nextBtn = document.getElementById('nextConceptBtn');
+                nextBtn.disabled = false;
+                
+                // Update progress
+                const currentProgress = parseInt(localStorage.getItem(`progress_${APP_STATE.currentPath}`)) || 0;
+                if (APP_STATE.currentConceptIndex >= currentProgress) {
+                    localStorage.setItem(`progress_${APP_STATE.currentPath}`, APP_STATE.currentConceptIndex + 1);
+                }
+            }
+            
+            updateProgressSidebar();
+        }
+
+        function showQuizResults(score, correct, total) {
+            const container = document.getElementById('contentContainer');
+            const resultsDiv = document.createElement('div');
+            resultsDiv.className = 'quiz-results';
+            resultsDiv.innerHTML = `
+                <div class="results-score">${score}%</div>
+                <div class="results-message">
+                    ${score >= 70 ? '🎉 Great job! You passed!' : '💪 Keep practicing!'}
+                </div>
+                <p>You got ${correct} out of ${total} questions correct.</p>
+                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="startQuiz()">Take Another Quiz</button>
+                    ${score >= 70 ? '<button class="btn btn-primary" onclick="nextConcept()">Next Concept</button>' : ''}
+                    <button class="btn btn-secondary" onclick="loadConcept()">Review Concept</button>
+                </div>
+            `;
+            
+            container.insertBefore(resultsDiv, container.firstChild);
+            container.scrollTop = 0;
+        }
+
+        function saveQuizAttempt(score, correct, total, difficulty) {
+            const quizKey = `quiz_${APP_STATE.currentPath}_${APP_STATE.currentConceptIndex}`;
+            const existing = localStorage.getItem(quizKey);
+            const data = existing ? JSON.parse(existing) : { attempts: [] };
+            
+            data.attempts.push({
+                timestamp: Date.now(),
+                score: score,
+                correct: correct,
+                total: total,
+                difficulty: difficulty,
+                questions: currentQuiz.questions.map((q, idx) => ({
+                    question: q.question,
+                    userAnswer: userAnswers[idx],
+                    correctAnswer: q.correctAnswer,
+                    isCorrect: userAnswers[idx] === q.correctAnswer
+                }))
+            });
+            
+            localStorage.setItem(quizKey, JSON.stringify(data));
+        }
+
+        // ==================== PROGRESS TRACKING ====================
+        function updateProgressSidebar() {
+            const path = LEARNING_PATHS[APP_STATE.currentPath];
+            let totalQuizzes = 0;
+            let totalScore = 0;
+            let conceptsCompleted = 0;
+            
+            path.concepts.forEach((_, index) => {
+                const quizKey = `quiz_${APP_STATE.currentPath}_${index}`;
+                const quizData = localStorage.getItem(quizKey);
+                if (quizData) {
+                    const data = JSON.parse(quizData);
+                    if (data.attempts && data.attempts.length > 0) {
+                        conceptsCompleted++;
+                        totalQuizzes += data.attempts.length;
+                        data.attempts.forEach(attempt => {
+                            totalScore += attempt.score;
+                        });
+                    }
+                }
+            });
+            
+            const avgScore = totalQuizzes > 0 ? Math.round(totalScore / totalQuizzes) : 0;
+            const progress = Math.round((conceptsCompleted / path.concepts.length) * 100);
+            
+            document.getElementById('overallProgress').textContent = progress + '%';
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('conceptsCompleted').textContent = conceptsCompleted;
+            document.getElementById('quizzesCompleted').textContent = totalQuizzes;
+            document.getElementById('averageScore').textContent = avgScore + '%';
+            
+            // Calculate streak (simplified)
+            const streakDays = calculateStreak();
+            document.getElementById('streakDays').textContent = streakDays;
+        }
+
+        function calculateStreak() {
+            // Simplified streak calculation
+            const today = new Date().toDateString();
+            const lastActive = localStorage.getItem('lastActive');
+            
+            if (lastActive === today) {
+                return parseInt(localStorage.getItem('streakDays')) || 1;
+            } else {
+                const streak = 1;
+                localStorage.setItem('lastActive', today);
+                localStorage.setItem('streakDays', streak);
+                return streak;
+            }
+        }
+
+        function updateNavigationButtons() {
+            const path = LEARNING_PATHS[APP_STATE.currentPath];
+            const prevBtn = document.getElementById('prevConceptBtn');
+            const nextBtn = document.getElementById('nextConceptBtn');
+            
+            prevBtn.disabled = APP_STATE.currentConceptIndex === 0;
+            
+            // Check if current concept quiz is passed
+            const quizKey = `quiz_${APP_STATE.currentPath}_${APP_STATE.currentConceptIndex}`;
+            const quizData = localStorage.getItem(quizKey);
+            let passed = false;
+            
+            if (quizData) {
+                const data = JSON.parse(quizData);
+                if (data.attempts && data.attempts.length > 0) {
+                    passed = data.attempts.some(attempt => attempt.score >= 70);
+                }
+            }
+            
+            nextBtn.disabled = !passed || APP_STATE.currentConceptIndex >= path.concepts.length - 1;
+        }
+
+        // ==================== QUIZ HISTORY ====================
+        function viewHistory() {
+            document.getElementById('homeView').classList.remove('active');
+            document.getElementById('learningView').classList.remove('active');
+            document.getElementById('historyView').classList.add('active');
+            
+            renderQuizHistory();
+        }
+
+        function renderQuizHistory() {
+            const path = LEARNING_PATHS[APP_STATE.currentPath];
+            const historyList = document.getElementById('historyList');
+            const conceptFilter = document.getElementById('conceptFilter');
+            
+            // Populate concept filter
+            conceptFilter.innerHTML = '<option value="all">All Concepts</option>';
+            path.concepts.forEach((concept, index) => {
+                conceptFilter.innerHTML += `<option value="${index}">${concept.title}</option>`;
+            });
+            
+            // Render history
+            historyList.innerHTML = '';
+            let allAttempts = [];
+            
+            path.concepts.forEach((concept, index) => {
+                const quizKey = `quiz_${APP_STATE.currentPath}_${index}`;
+                const quizData = localStorage.getItem(quizKey);
+                
+                if (quizData) {
+                    const data = JSON.parse(quizData);
+                    if (data.attempts) {
+                        data.attempts.forEach(attempt => {
+                            allAttempts.push({
+                                ...attempt,
+                                conceptIndex: index,
+                                conceptTitle: concept.title
+                            });
+                        });
+                    }
+                }
+            });
+            
+            // Sort by timestamp (newest first)
+            allAttempts.sort((a, b) => b.timestamp - a.timestamp);
+            
+            if (allAttempts.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; padding: 40px; opacity: 0.7;">No quiz attempts yet. Start taking quizzes to see your history here.</p>';
+                return;
+            }
+            
+            allAttempts.forEach(attempt => {
+                const date = new Date(attempt.timestamp);
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.innerHTML = `
+                    <div class="history-header">
+                        <div>
+                            <strong>${attempt.conceptTitle}</strong>
+                            <div style="font-size: 14px; opacity: 0.7; margin-top: 5px;">
+                                ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 24px; font-weight: 700; color: var(--primary);">${attempt.score}%</div>
+                            <div style="font-size: 14px; opacity: 0.7;">Difficulty: ${attempt.difficulty}</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 14px;">
+                        ✅ ${attempt.correct} correct | ❌ ${attempt.total - attempt.correct} incorrect
+                    </div>
+                `;
+                historyList.appendChild(item);
+            });
+        }
+
+        function filterHistory() {
+            const conceptFilter = document.getElementById('conceptFilter').value;
+            const difficultyFilter = document.getElementById('difficultyFilter').value;
+            
+            // Re-render with filters (implementation simplified for space)
+            renderQuizHistory();
+        }
+
+        function generateWeakAreasQuiz() {
+            alert('Weak Areas Quiz feature will analyze all your incorrect answers and generate a targeted practice quiz. Implementation in progress!');
+        }
+
+        // ==================== API INTEGRATION ====================
+        async function generateContent(prompt) {
+            if (!APP_STATE.apiKey) {
+                throw new Error('API key not configured. Please add your Groq API key in Settings.');
+            }
+            
+            const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${APP_STATE.apiKey}`
+                },
+                body: JSON.stringify({
+                    model: APP_STATE.model,
+                    messages: [
+                        {
+                            role: 'system',
+                            content: `You are an expert system design educator specializing in engaging, story-driven education. Your goal is to make complex concepts memorable and exciting.
+
+FORMATTING INSTRUCTIONS:
+- Use markdown: **bold**, *italics*, \`code\`, ##headers, ###subheaders
+- Mark key concepts with **{CONCEPT_NAME}** (these will be highlighted in boxes)
+- Use code blocks with triple backticks for examples
+- Use lists with - or 1. for structured information
+
+OPTIONAL SECTION MARKERS (use naturally, don't force):
+When these fit organically into your explanation, mark them clearly:
+- [STORY] for narrative-driven explanations that hook the reader
+- [ANALOGY] for comparisons that make abstract concepts concrete
+- [EXAMPLE] for code examples or real system walkthroughs
+- [TIP] for practical, actionable advice
+- [WARNING] for common pitfalls or mistakes
+- [REAL-WORLD] for how actual systems (Facebook, Netflix, Uber, Twitter, Google, Amazon, etc.) solve this problem
+
+CONTENT GUIDELINES:
+1. START ENGAGING: Open with a story or question that makes the reader care about this concept
+2. USE CONCRETE EXAMPLES: Real systems are more interesting than abstract theory
+3. EXPLAIN THE WHY: Help readers understand not just what, but why this matters
+4. PROVIDE MENTAL MODELS: Use analogies to complex concepts - relate them to everyday experiences
+5. HIGHLIGHT KEY CONCEPTS: Mark important terms with **{braces}** so they stand out
+6. INCLUDE EXAMPLES: Code snippets, architectural diagrams (ASCII is fine), or system walkthroughs
+7. ADD PRACTICAL VALUE: Give actionable tips that readers can use
+8. WARN ABOUT PITFALLS: Help readers avoid common mistakes
+9. CONNECT TO REALITY: Show how real companies apply these concepts
+
+TONE & STYLE:
+- Conversational and approachable (not academic or textbook-like)
+- Expert-level depth but accessible to beginners
+- Enthusiastic about the topic
+- Make readers excited to learn, not bored
+
+AVOID:
+- Generic "by definition" explanations
+- Listing features without context
+- Disconnected real-world examples
+- Being prescriptive or robotic
+
+Remember: Your goal is to make someone understand WHY this concept matters and HOW to think about it, not just to deliver information.`
+                        },
+                        {
+                            role: 'user',
+                            content: prompt
+                        }
+                    ],
+                    temperature: 0.7,
+                    max_tokens: 8000
+                })
+            });
+            
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error?.message || 'API request failed');
+            }
+            
+            const data = await response.json();
+            return data.choices[0].message.content;
+        }
+
+        // ==================== KEYBOARD SHORTCUTS ====================
+        document.addEventListener('keydown', (e) => {
+            if (e.altKey) {
+                if (e.key === 'n') {
+                    e.preventDefault();
+                    nextConcept();
+                } else if (e.key === 'p') {
+                    e.preventDefault();
+                    prevConcept();
+                } else if (e.key === 'q') {
+                    e.preventDefault();
+                    startQuiz();
+                } else if (e.key === 'h') {
+                    e.preventDefault();
+                    goHome();
+                }
+            }
+        });
+
+        // ==================== START APPLICATION ====================
+        init();
+    </script>
+</body>
+</html>
